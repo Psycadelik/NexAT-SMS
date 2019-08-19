@@ -14,6 +14,7 @@ MarkupSafe==1.1.1
 nexmo==2.4.0
 pycparser==2.19
 PyJWT==1.7.1
+python-dotenv==0.10.3
 pytz==2019.2
 requests==2.22.0
 schema==0.7.0
