@@ -1,4 +1,5 @@
 import nexmo
+import africastalking
 
 class smsService:
 	def nexmoClient(sms):

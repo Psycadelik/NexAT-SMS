@@ -21,4 +21,4 @@ Here's the basic directory structure;
 - create a virtual environment i.e virtualenv venv
 - activate virtual environment i.e source venv/bin/activate
 - run pip install -r requirements.txt
-- start the project : python wsgi.py
+- start the project : python app.py
