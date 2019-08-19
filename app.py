@@ -1,18 +1,6 @@
-import nexmo
+from app import create_app
 
-class smsService:
-	def nexmoClient(sms):
-
-	def atClient(sms):
-
-	def smsServiceProcessor(sms,provider):
-		if(provider == 'Nexmo'):
-			nexmoClient(sms)
-		elif(provider == 'AfricasTalking')
-			atClient(sms)
-		else:
-			return "Invalid provider"
-
+app = create_app()
 
 if __name__ == '__main__':
     app.run(debug=True)
