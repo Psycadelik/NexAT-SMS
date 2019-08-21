@@ -34,10 +34,10 @@ Here's the basic directory structure;
 - start the project : python app.py
 - open postman and navigate to the url : 127.0.0.1:5000/sendsms
 - add the payload as json: 
-    #{
-        "provider": "nexmo(or africastalking)",
-        "sms": "your message"
-    #}
+    ###### {
+    ###### "provider": "nexmo(or africastalking)",
+    ###### "sms": "your message"
+    ###### }
 
 
 
