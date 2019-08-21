@@ -2,3 +2,4 @@ venv
 .idea
 .env
 app/__pycache__
+test/__pycache__

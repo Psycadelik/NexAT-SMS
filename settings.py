@@ -10,6 +10,3 @@ load_dotenv(verbose=True)
 from pathlib import Path  # python3 only
 env_path = Path('.') / '.env'
 load_dotenv(dotenv_path=env_path)
-
-
-NEXMO_API_KEY=os.getenv("NEXMO_API_KEY")
