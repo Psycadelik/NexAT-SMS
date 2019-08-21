@@ -12,6 +12,10 @@ Here's the basic directory structure;
 ├── test
 │   └── __init__.py
 └── app.py
+|__ Dockerfile
+|__ .env
+|__ docker-compose.yml
+|__ .travis.yml
 
 ```
 
