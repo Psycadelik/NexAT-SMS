@@ -3,7 +3,7 @@ import os
 from flask import jsonify
 
 
-def africastalking_sms(sms):
+def africastalking_sms(sms, recipient):
     username = os.getenv("AT_USERNAME")
     api_key = os.getenv("AT_API_KEY")
 
@@ -11,7 +11,7 @@ def africastalking_sms(sms):
 
     atsms = africastalking.SMS
 
-    recipients = ["+254727440297", "+254726063033"]
+    recipients = ["+{}".format(recipient)]
 
     message = sms
 

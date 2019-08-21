@@ -3,7 +3,7 @@ import os
 from flask import jsonify
 
 
-def nexmo_sms(sms):
+def nexmo_sms(sms, recipient):
     NEXMO_API_KEY = os.getenv("NEXMO_API_KEY")
     NEXMO_API_SECRET = os.getenv("NEXMO_API_SECRET")
 
@@ -12,7 +12,7 @@ def nexmo_sms(sms):
     responseData = client.send_message(
         {
             "from": "Acme Inc",
-            "to": 254727440297,
+            "to": recipient,
             "text": sms,
         }
     )

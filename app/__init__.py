@@ -8,16 +8,16 @@ from app.config import configs
 from app import tasks
 
 
-def nexmoclient(sms):
-    return nexmo_sms(sms)
+def nexmoclient(sms, recipient):
+    return nexmo_sms(sms, recipient)
 
 
-def atclient(sms):
-    return africastalking_sms(sms)
+def atclient(sms,recipient):
+    return africastalking_sms(sms, recipient)
 
 
-def anonymous(sms):
-    return uncharted_sms(sms)
+def anonymous(sms, recipient):
+    return uncharted_sms(sms, recipient)
 
 
 def create_app(environment='development'):
@@ -31,15 +31,17 @@ def create_app(environment='development'):
 
         sms = request.get_json().get('sms')
 
+        recipient = request.get_json().get('recipient')
+
         if provider == 'nexmo':
 
-            return nexmoclient(sms)
+            return nexmoclient(sms, recipient)
 
         elif provider == 'africastalking':
 
-            return atclient(sms)
+            return atclient(sms, recipient)
 
         else:
-            return anonymous(sms)
+            return anonymous(sms, recipient)
 
     return app

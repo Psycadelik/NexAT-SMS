@@ -39,7 +39,8 @@ Here's the basic directory structure;
 
      `{`              
             `"provider": "nexmo(or africastalking)",`           
-            `"sms": "your message"`        
+            `"sms": "your message"`,    
+            `"recipient": 254723123456`        
       `}`   
 
 
