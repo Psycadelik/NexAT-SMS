@@ -1,6 +1,6 @@
 import nexmo
 import os
-
+from flask import jsonify
 
 def nexmo_sms(sms):
     NEXMO_API_KEY = os.getenv("NEXMO_API_KEY")
@@ -18,8 +18,6 @@ def nexmo_sms(sms):
     )
 
     if responseData["messages"][0]["status"] == "0":
-        print("Message sent successfully.")
+        return jsonify("Message sent successfully.")
     else:
-        print(f"Message failed with error: {responseData['messages'][0]['error-text']}")
-
-    return sms
+        return jsonify(f"Message failed with error: {responseData['messages'][0]['error-text']}")
