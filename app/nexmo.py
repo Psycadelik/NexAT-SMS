@@ -2,6 +2,7 @@ import nexmo
 import os
 from flask import jsonify
 
+
 def nexmo_sms(sms):
     NEXMO_API_KEY = os.getenv("NEXMO_API_KEY")
     NEXMO_API_SECRET = os.getenv("NEXMO_API_SECRET")
@@ -13,7 +14,6 @@ def nexmo_sms(sms):
             "from": "Acme Inc",
             "to": 254727440297,
             "text": sms,
-            # "text": "A text message sent using the Nexmo SMS API",
         }
     )
 
