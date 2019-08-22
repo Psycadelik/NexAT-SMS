@@ -6,7 +6,10 @@ from rq import Queue
 r = redis.Redis()
 q = Queue(connection=r)
 
-delay = 2
-time.sleep(delay)
 
-# job = q.enqueue(sms)
+def send_sms():
+
+    delay = 2
+    time.sleep(delay)
+
+#    job = q.enqueue(sms)
