@@ -1,5 +1,9 @@
 # SMS Client Api
 
+<p align="center">
+<a href="https://travis-ci.com/Psycadelik/NexAT-SMS"><img src="https://travis-ci.org/laravel/framework.svg" alt="Build Status"></a>
+</p>
+
 ###### This is an sms service that provides endpoints for sending sms via either Nexmo or AfricasTalking
 
 Here's the basic directory structure;
