@@ -4,6 +4,7 @@ from app.nexmo import nexmo_sms
 from app.africastalking import africastalking_sms
 from app.uncharted import uncharted_sms
 from app.africastalking import subscription_sms
+from app.africastalking import cheza_sms
 
 from app.config import configs
 from app import tasks
@@ -21,6 +22,10 @@ def nexmoclient(sms, recipient):
 
 def atclient(sms, recipient):
     return africastalking_sms(sms, recipient)
+
+
+def chezaAT(recipient):
+    return cheza_sms(recipient)
 
 
 def anonymous(sms, recipient):
@@ -54,6 +59,10 @@ def create_app(environment='development'):
         elif provider == 'africastalking':
 
             return atclient(sms, recipient)
+
+        elif provider == 'chezaAT':
+
+            return chezaAT(recipient)
 
         else:
             return anonymous(sms, recipient)
