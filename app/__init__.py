@@ -1,3 +1,4 @@
+import os
 from flask import Flask, request, jsonify
 
 from app.nexmo import nexmo_sms
@@ -9,9 +10,13 @@ from app.africastalking import cheza_sms
 from app.config import configs
 from app import tasks
 
-from flask_sqlalchemy import SQLAlchemy
-from flask_migrate import Migrate
+# from flask_sqlalchemy import SQLAlchemy
+# from flask_migrate import Migrate
 
+from app.db import get_db
+
+
+# from app.models import SMS
 
 # from app import models
 
@@ -37,11 +42,26 @@ def anonymous(sms, recipient):
 # migrate = Migrate(app, db)
 
 
-def create_app(environment='development'):
-    app = Flask(__name__)
+def create_app(environment='development', test_config=None):
+    app = Flask(__name__, instance_relative_config=True)
     app.config.from_object(configs[environment])
-    db = SQLAlchemy(app)
-    migrate = Migrate(app, db)
+    app.config.from_mapping(
+        SECRET_KEY='dev',
+        DATABASE=os.path.join(app.instance_path, 'cheza.sqlite')
+    )
+    # db = SQLAlchemy(app)
+    # migrate = Migrate(app, db)
+
+    if test_config is None:
+        app.config.from_pyfile('config.py', silent=True)
+
+    else:
+        app.config.from_mapping(test_config)
+
+    try:
+        os.makedirs(app.instance_path)
+    except OSError:
+        pass
 
     @app.route('/sendsms', methods=['POST'])
     def send_sms():
@@ -60,13 +80,14 @@ def create_app(environment='development'):
 
             return atclient(sms, recipient)
 
-        elif provider == 'chezaAT':
+        elif provider == 'cheza':
 
             return chezaAT(recipient)
 
         else:
             return anonymous(sms, recipient)
 
+    @app.shell_context_processor
     @app.route('/inbox/sms', methods=['POST'])
     def inbox_sms_incoming():
         phoneNumber = request.get_json().get("phoneNumber")
@@ -74,6 +95,27 @@ def create_app(environment='development'):
         keyword = request.get_json().get("keyword")
         updateType = request.get_json().get("updateType")
 
-        return jsonify(phoneNumber, shortCode, keyword, updateType)
+        db = get_db()
+        db.execute(
+            'INSERT INTO sms (phoneNumber, shortCode, keyword, updateType) VALUES (?,?,?,?)',
+            (phoneNumber, shortCode, keyword, updateType)
+        )
+        db.commit()
 
+        # m = SMS()
+        # m.phoneNumber = phoneNumber
+        # m.shortCode = shortCode
+        # m.keyword = keyword
+        # m.updateType = updateType
+        # db.session.add(m)
+
+        message = ["Response saved successfully from +{}".format(phoneNumber)]
+
+        try:
+            return jsonify(message)
+        except Exception as e:
+            return jsonify("an error occurred while saving to database")
+
+    from . import db
+    db.init_app(app)
     return app
