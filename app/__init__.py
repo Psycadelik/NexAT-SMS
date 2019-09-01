@@ -33,6 +33,10 @@ def chezaAT(recipient):
     return cheza_sms(recipient)
 
 
+def subscribe_user(recipient):
+    return subscription_sms(recipient)
+
+
 def anonymous(sms, recipient):
     return uncharted_sms(sms, recipient)
 
@@ -80,12 +84,20 @@ def create_app(environment='development', test_config=None):
 
             return atclient(sms, recipient)
 
-        elif provider == 'cheza':
-
-            return chezaAT(recipient)
-
         else:
             return anonymous(sms, recipient)
+
+    @app.route('/create/subscription', methods=['POST'])
+    def create_sms_subscription():
+
+        recipient = request.get_json().get('recipient')
+
+        try:
+            subscribe_user(recipient)
+
+            return jsonify("Subscription created successfully")
+        except Exception as e:
+            return jsonify("an error occurred while saving to database")
 
     @app.shell_context_processor
     @app.route('/inbox/sms', methods=['POST'])
@@ -115,6 +127,14 @@ def create_app(environment='development', test_config=None):
             return jsonify(message)
         except Exception as e:
             return jsonify("an error occurred while saving to database")
+
+    @app.route('/cheza/winner', methods=['GET'])
+    def pick_random_winner():
+        db = get_db()
+        sms_responses = db.execute(
+            'SELECT phoneNumber from sms where updateType = ?',
+            ('sms')
+        )
 
     from . import db
     db.init_app(app)
