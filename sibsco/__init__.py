@@ -1,19 +1,19 @@
 import os
 from flask import Flask, request, jsonify
 
-from app.nexmo import nexmo_sms
-from app.africastalking import africastalking_sms
-from app.uncharted import uncharted_sms
-from app.africastalking import subscription_sms
-from app.africastalking import cheza_sms
+from sibsco.nexmo import nexmo_sms
+from sibsco.africastalking import africastalking_sms
+from sibsco.uncharted import uncharted_sms
+from sibsco.africastalking import subscription_sms
+from sibsco.africastalking import cheza_sms
 
-from app.config import configs
-from app import tasks
+from sibsco.config import configs
+from sibsco import tasks
 
 # from flask_sqlalchemy import SQLAlchemy
 # from flask_migrate import Migrate
 
-from app.db import get_db
+from sibsco.db import get_db
 
 
 # from app.models import SMS

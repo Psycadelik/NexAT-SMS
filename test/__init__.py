@@ -1,7 +1,7 @@
 import unittest
 import json
 
-from app import create_app
+from sibsco import create_app
 
 
 class TestUtils(unittest.TestCase):
