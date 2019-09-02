@@ -1,0 +1,9 @@
+DROP TABLE IF EXISTS sms;
+
+CREATE TABLE sms (
+  id INTEGER PRIMARY KEY AUTOINCREMENT,
+  phoneNumber INTEGER NOT NULL ,
+  shortCode INTEGER NOT NULL ,
+  keyword TEXT NOT NULL,
+  updateType TEXT NOT NULL
+);

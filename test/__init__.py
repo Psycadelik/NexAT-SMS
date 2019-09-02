@@ -1,7 +1,7 @@
 import unittest
 import json
 
-from app import create_app
+from sibsco import create_app
 
 
 class TestUtils(unittest.TestCase):
@@ -11,7 +11,6 @@ class TestUtils(unittest.TestCase):
 
     def setUp(self):
         with self.app.app_context():
-
             self.app.testing = True
             self.app = self.app.test_client()
 
@@ -44,6 +43,13 @@ class TestUtils(unittest.TestCase):
                 "recipient": 254727440297
             }
 
+            self.sms = {
+                "phoneNumber": 254727440297,
+                "shortCode": 4598,
+                "keyword": "cheza",
+                "updateType": "init"
+            }
+
     def test_endpoint(self):
         response = self.app.post('/sendsms', data=json.dumps(self.data), content_type='application/json')
         self.assertEqual(response.status_code, 200)
@@ -58,7 +64,7 @@ class TestUtils(unittest.TestCase):
         res = "There was an error processing your request in the Platform."
 
         response = self.app.post('/sendsms', data=json.dumps(self.dat), content_type='application/json')
-        self.assertTrue(response, res)
+        self.assertTrue(response.status_code, 200)
 
     def test_successful_africastalking_sms(self):
         res = "sent"
@@ -77,6 +83,11 @@ class TestUtils(unittest.TestCase):
 
         response = self.app.post('/sendsms', data=json.dumps(self.uData), content_type='application/json')
         self.assertTrue(response, res)
+
+    def test_inbox_sms(self):
+
+        response = self.app.post('/inbox/sms', data=json.dumps(self.sms), content_type='application/json')
+        self.assertEqual(response.status_code, 200)
 
 
 if __name__ == "__main__":
