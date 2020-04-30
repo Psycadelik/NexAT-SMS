@@ -9,7 +9,7 @@ python-dateutil==2.8.0
 python-dotenv==0.10.3
 python-editor==1.0.4
 pytz==2019.2
-redis==3.3.8
+redis==3.5.0
 requests==2.22.0
 rq==1.1.0
 schema==0.7.0
