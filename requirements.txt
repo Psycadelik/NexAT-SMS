@@ -1,7 +1,7 @@
 africastalking==1.1.7
 Flask==1.0.2
 Flask-Migrate==2.5.2
-Flask-SQLAlchemy==2.4.0
+Flask-SQLAlchemy==2.4.4
 nexmo==2.4.0
 pycparser==2.19
 PyJWT==1.7.1
